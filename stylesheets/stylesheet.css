@@ -472,7 +472,9 @@ footer a:hover {
     margin-left: 0;
   }
 }
-
+body{
+  background: #fafafa url(../images/sss.jpg) 0 0 repeat;
+}
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {}
 
