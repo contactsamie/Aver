@@ -1,4 +1,4 @@
 Aver
 ====
 
-Super Easy Javascript Testing Library
+Super Easy Javascript Testing Library.
