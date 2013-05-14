@@ -1,0 +1,1 @@
+(function(e){e.SetDisplay(function(e,t,n,r,i){if(e===true){console.log(t+" Passed!")}else{console.log(t+" Failed! - Result Expected: "+n+", Result Getting : "+r+" | '"+i+"'")}})})(Aver)
