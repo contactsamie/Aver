@@ -137,6 +137,7 @@ a.button {
   color: #fff;
   padding-left: 68px;
   padding-top: 22px;
+  background: #fafafa url(../images/sss.jpg) 0 0 repeat;
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
 }
 a.button small {
