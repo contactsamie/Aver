@@ -29,17 +29,16 @@
             OtherwiseFailBecause: pOtherwiseFailBecause
         };
     };
-     var internalTest={
-                name: "Is",
-                method: function (actualValue, expectedValue) {
-                    return (actualValue === expectedValue);
-                }
-            };
-     
+    var internalTest = {
+        name: "Is",
+        method: function (actualValue, expectedValue) {
+            return (actualValue === expectedValue);
+        }
+    };
     g.Aver = {
         // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
         T: function (nameofTest, actualValue, reasonForFailingTest) {
-            this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
+          return  this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
         },
         //set what display name to use
         SD: function (d) {
@@ -52,7 +51,6 @@
                 pExpectedValue = expectedValue;
                 return pTestFrame(plg.method);
             };
-
         },
         //specify description of the test
         WhenTesting: function (nameofTest) {
@@ -62,5 +60,5 @@
             return ensure;
         }
     };
-     Aver.PI(internalTest);
+    Aver.PI(internalTest);
 })(window);
