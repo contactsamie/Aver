@@ -7,7 +7,12 @@
     var pOtherwiseFailBecause = function (reasonForFailingTest) {
         pReasonForFailingTest = reasonForFailingTest;
         // call the display
-        Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest);
+        if (typeof (Output) == "function") {
+            Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest);
+        } else {
+            console.log(pStatus + "|" + pNameOfTest + "|" + pExpectedValue + "|" + pActualValue + "|" + pReasonForFailingTest);
+        }
+        return pStatus;
     };
     var ensure = {
         //set the actual value
@@ -25,6 +30,16 @@
         };
     };
     g.Aver = {
+        // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
+        T: function (nameofTest, actualValue, reasonForFailingTest) {
+            this.PI({
+                name: "b",
+                method: function (actualValue, expectedValue) {
+                    return (actualValue === expectedValue);
+                }
+            });
+            this.WhenTesting(nameofTest).ToMakeSure(actualValue).b(true).OtherwiseFailBecause(reasonForFailingTest);
+        },
         //set what display name to use
         SD: function (d) {
             Output = d;
@@ -36,6 +51,7 @@
                 pExpectedValue = expectedValue;
                 return pTestFrame(plg.method);
             };
+
         },
         //specify description of the test
         WhenTesting: function (nameofTest) {
