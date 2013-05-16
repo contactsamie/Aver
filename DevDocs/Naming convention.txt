@@ -1,0 +1,5 @@
+test plugs have the name:
+[name of test plug].plug.js
+
+display plugins have the name:
+[name of display plugin].out.js
