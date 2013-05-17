@@ -16,25 +16,26 @@
         pReasonForFailingTest = reasonForFailingTest;
         end_time = new Date();
         test_duration = end_time.getTime() - start_time.getTime();
-		var f_result="passed";
-	if(pStatus===false){
-	f_result="failed";
-	}
-        var output_data = {
-            result: f_result,//can be passed or failed
+        var f_result = "passed";
+        if (pStatus === false) {
+            f_result = "failed";
+        }
+      
+        // call the display
+        if (typeof (Output) == "function") {
+            Output({
+            result: f_result, //can be passed or failed
             a: pStatus,
             b: pNameOfTest,
             c: pExpectedValue,
             d: pActualValue,
             e: pReasonForFailingTest,
-			f: CURRENT_VERSION,
-			g: test_duration
-        };
-        // call the display
-        if (typeof (Output) == "function") {
-            Output(output_data);
+            f: CURRENT_VERSION,
+            g: test_duration
+        });
         } else {
-            console.log(f_result + "|expected-" + pExpectedValue + "|got-"+pActualValue +"|in-"+test_duration+"ms"+ "|Aver v" + CURRENT_VERSION + "|for-"+ pNameOfTest + "|r-" + pReasonForFailingTest);
+            console.log(f_result + "|expected-" + pExpectedValue + "|got-" + pActualValue + "|in-" + test_duration + "ms" + "|Aver v" + CURRENT_VERSION + "|for-" + pNameOfTest + "|r-" + pReasonForFailingTest);
+       
         }
         return pStatus;
     };
