@@ -20,7 +20,6 @@
         if (pStatus === false) {
             f_result = "x - failed";
         }
-      
         // call the display
         if (typeof (Output) == "function") {
             Output({
@@ -34,8 +33,20 @@
             g: test_duration
         });
         } else {
-            console.log(f_result + "|expected-" + pExpectedValue + "|got-" + pActualValue + "|in-" + test_duration + "ms" + "|Aver v" + CURRENT_VERSION + "|for-" + pNameOfTest + "|r-" + pReasonForFailingTest);
-       
+            console.log(f_result + 
+			"|expected-" +
+			pExpectedValue + 
+			"|got-" + 
+			pActualValue + 
+			"|in-" + 
+			test_duration + 
+			"ms" + 
+			"|Aver v" + 
+			CURRENT_VERSION +
+			"|for-" + 
+			pNameOfTest + 
+			"|r-" +
+			pReasonForFailingTest);
         }
         return pStatus;
     };
