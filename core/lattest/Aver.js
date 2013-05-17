@@ -8,14 +8,20 @@ var root=this;
     var Output = {};
     var  returnCalls = {};
     var pActualValue, pExpectedValue, pCondition, pReasonForFailingTest, pStatus, pNameOfTest = {};
+	var start_time={};
+	var end_time={};
+    var test_duration={};
     //private will be made public later on
     var pOtherwiseFailBecause = function (reasonForFailingTest) {
         pReasonForFailingTest = reasonForFailingTest;
+        	end_time=new Date();
+        test_duration=end_time.getTime() - start_time.getTime();
+	
         // call the display
         if (typeof (Output) == "function") {
             Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest);
         } else {
-            console.log(pStatus + "|" + pNameOfTest + "|" + pExpectedValue + "|" + pActualValue + "|" + pReasonForFailingTest);
+            console.log(pStatus + "|expected-"  + pExpectedValue + "|" + pActualValue+"|Aver v"+CURRENT_VERSION+"|"+ pNameOfTest + "|"+ pReasonForFailingTest);
         }
         return pStatus;
     };
@@ -40,30 +46,35 @@ var root=this;
             return (actualValue===expectedValue);
         }
     };
-    root.Aver = {
-	version:CURRENT_VERSION,
-        // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
-        T: function (nameofTest, actualValue, reasonForFailingTest) {
-          return  this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
-        },
-        //set what display name to use
-        SD: function (d) {
-            Output = d;
-        },
-        // set the test plugs
-        PI: function (plg) {
+	var testPlug=function (plg) {
             //build the function starting with the expected value
             returnCalls[plg.name] = function (expectedValue) {
                 pExpectedValue = expectedValue;
                 return pTestFrame(plg.method);
             };
-        },
-        //specify description of the test
-        WhenTesting: function (nameofTest) {
-            pNameOfTest = nameofTest;
+        };
+		var whenTesting= function (nameofTest) {
+		start_time=new Date();
+		pNameOfTest = nameofTest;
             //expose the next chain - ToMakeSure
             return ensure;
+        };
+		var output=function (d) {
+            Output = d;
+        };
+		var shortForm=function (nameofTest, actualValue, reasonForFailingTest) {
+          return  this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
         }
+    root.Aver = {
+	    version:CURRENT_VERSION,
+        // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
+        T: shortForm,
+        //set what display name to use
+        SD: output,
+        // set the test plugs
+        PI: testPlug,
+        //specify description of the test
+        WhenTesting:whenTesting
     };
     Aver.PI(internalTest);
 }).call(this);
