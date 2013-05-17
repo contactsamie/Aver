@@ -1,7 +1,12 @@
-(function (g) {
+(function () {
+ // Current version is actually the current version being worked on for next release.
+ // but in hte deployed context it is the current version
+  var CURRENT_VERSION = '1.0.3';
+//establish the root objec - window or global
+var root=this;
     //todo - need to make this hold more than one display
     var Output = {};
-    var thisApplication, returnCalls = {};
+    var  returnCalls = {};
     var pActualValue, pExpectedValue, pCondition, pReasonForFailingTest, pStatus, pNameOfTest = {};
     //private will be made public later on
     var pOtherwiseFailBecause = function (reasonForFailingTest) {
@@ -35,7 +40,8 @@
             return (actualValue===expectedValue);
         }
     };
-    g.Aver = {
+    root.Aver = {
+	version:CURRENT_VERSION,
         // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
         T: function (nameofTest, actualValue, reasonForFailingTest) {
           return  this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
@@ -54,11 +60,10 @@
         },
         //specify description of the test
         WhenTesting: function (nameofTest) {
-            thisApplication = this;
             pNameOfTest = nameofTest;
             //expose the next chain - ToMakeSure
             return ensure;
         }
     };
     Aver.PI(internalTest);
-})(window);
+}).call(this);
