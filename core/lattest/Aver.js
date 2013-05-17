@@ -1,7 +1,7 @@
 (function () {
  // Current version is actually the current version being worked on for next release.
  // but in hte deployed context it is the current version
-  var CURRENT_VERSION = '1.0.3';
+  var CURRENT_VERSION = '1.0.4';
 //establish the root objec - window or global
 var root=this;
     //todo - need to make this hold more than one display
