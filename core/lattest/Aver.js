@@ -32,7 +32,7 @@
     var internalTest = {
         name: "Is",
         method: function (actualValue, expectedValue) {
-            return (actualValue === expectedValue);
+            return (actualValue===expectedValue);
         }
     };
     g.Aver = {

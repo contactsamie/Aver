@@ -140,6 +140,88 @@ ok(expectedValue===passedExpectedValue, " Correct expected value must be passed 
 
 
 
+test( "Testing some weired scenarios of EQUALITY WHERE var x={} AND var y={} AND var z=x then It is expected that equality test among x,y and z will be positive", function() {
+var x={};
+var y={};
+var z=x;
+ok(Aver.T("x===y", x===y, "inconclusive")," Expected x===y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y===z", y===z, "inconclusive")," Expected y===z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z===x", z===x, "inconclusive")," Expected z===x in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x==={}", x==={}, "inconclusive")," Expected x==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y==={}", y==={}, "inconclusive")," Expected y==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z==={}", z==={},"inconclusive")," Expected z==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x==y", x==y, "inconclusive")," Expected x==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y==z", y==z, "inconclusive")," Expected y==z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z==x", z==x,"inconclusive")," Expected z==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x=={}", x=={}, "inconclusive")," Expected x=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y=={}", y=={},"inconclusive")," Expected y=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T(" z=={}", z=={},"inconclusive")," Expected z=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+});
+
+test( "Testing scenarios of EQUALITY WHERE var x={} AND var y={} AND var z=x directly with QUnit", function() {
+var x={};
+var y={};
+var z=x;
+
+ok( x===y," with QUnit Expected x===y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y===z," with QUnit  Expected y===z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z===x," with QUnit  Expected z===x in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( x==={}," with QUnit  Expected x==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y==={}," with QUnit  Expected y==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z==={}," with QUnit  Expected z==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(x==y," with QUnit  Expected x==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y==z," with QUnit  Expected y==z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z==x," with QUnit  Expected z==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( x=={}," with QUnit  Expected x=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y=={}," with QUnit  Expected y=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(z=={}," with QUnit  Expected z=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+});
+
+
+
+
+
+test( "Testing some weired scenarios of EQUALITY WHERE var x={a:1} AND var y={a:1} AND var z=x then It is expected that equality test among x,y and z will be positive", function() {
+var x={a:1};
+var y={a:1};
+var z=x;
+ok(Aver.T("x===y", x===y, "inconclusive")," Expected x===y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y===z", y===z, "inconclusive")," Expected y===z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z===x", z===x, "inconclusive")," Expected z===x in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x==={}", x==={}, "inconclusive")," Expected x==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y==={}", y==={}, "inconclusive")," Expected y==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z==={}", z==={},"inconclusive")," Expected z==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x==y", x==y, "inconclusive")," Expected x==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y==z", y==z, "inconclusive")," Expected y==z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("z==x", z==x,"inconclusive")," Expected z==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("x=={}", x=={}, "inconclusive")," Expected x=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T("y=={}", y=={},"inconclusive")," Expected y=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(Aver.T(" z=={}", z=={},"inconclusive")," Expected z=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+});
+
+test( "Testing scenarios of EQUALITY WHERE var x={a:1} AND var y={a:1} AND var z=x directly with QUnit", function() {
+var x={a:1};
+var y={a:1};
+var z=x;
+ok( x===y," with QUnit Expected x===y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y===z," with QUnit  Expected y===z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z===x," with QUnit  Expected z===x in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( x==={}," with QUnit  Expected x==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y==={}," with QUnit  Expected y==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z==={}," with QUnit  Expected z==={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(x==y," with QUnit  Expected x==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y==z," with QUnit  Expected y==z in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( z==x," with QUnit  Expected z==y in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( x=={}," with QUnit  Expected x=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok( y=={}," with QUnit  Expected y=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+ok(z=={}," with QUnit  Expected z=={} in case where WHEN var x={} AND var y={} AND var z=x ");
+});
+
+
+
+
+
+
 
 
 
