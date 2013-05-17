@@ -1,27 +1,27 @@
 (function () {
- // Current version is actually the current version being worked on for next release.
- // but in hte deployed context it is the current version
-  var CURRENT_VERSION = '1.0.4';
-//establish the root objec - window or global
-var root=this;
+    // Current version is actually the current version being worked on for next release.
+    // but in hte deployed context it is the current version
+    var CURRENT_VERSION = '1.0.4';
+    //establish the root objec - window or global
+    var root = this;
     //todo - need to make this hold more than one display
     var Output = {};
-    var  returnCalls = {};
+    var returnCalls = {};
     var pActualValue, pExpectedValue, pCondition, pReasonForFailingTest, pStatus, pNameOfTest = {};
-	var start_time={};
-	var end_time={};
-    var test_duration={};
+    var start_time = {};
+    var end_time = {};
+    var test_duration = {};
     //private will be made public later on
     var pOtherwiseFailBecause = function (reasonForFailingTest) {
         pReasonForFailingTest = reasonForFailingTest;
-        	end_time=new Date();
-        test_duration=end_time.getTime() - start_time.getTime();
-	
+        end_time = new Date();
+        test_duration = end_time.getTime() - start_time.getTime();
+
         // call the display
         if (typeof (Output) == "function") {
-            Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest);
+            Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest, CURRENT_VERSION, test_duration);
         } else {
-            console.log(pStatus + "|expected-"  + pExpectedValue + "|" + pActualValue+"|Aver v"+CURRENT_VERSION+"|"+ pNameOfTest + "|"+ pReasonForFailingTest);
+            console.log(pStatus + "|expected-" + pExpectedValue + "|" + pActualValue + "|Aver v" + CURRENT_VERSION + "|" +test_duration+"ms|"+ pNameOfTest + "|" + pReasonForFailingTest);
         }
         return pStatus;
     };
@@ -43,38 +43,89 @@ var root=this;
     var internalTest = {
         name: "Is",
         method: function (actualValue, expectedValue) {
-            return (actualValue===expectedValue);
+            return (actualValue === expectedValue);
         }
     };
-	var testPlug=function (plg) {
-            //build the function starting with the expected value
-            returnCalls[plg.name] = function (expectedValue) {
-                pExpectedValue = expectedValue;
-                return pTestFrame(plg.method);
-            };
+    var testPlug = function (plg) {
+        //build the function starting with the expected value
+        returnCalls[plg.name] = function (expectedValue) {
+            pExpectedValue = expectedValue;
+            return pTestFrame(plg.method);
         };
-		var whenTesting= function (nameofTest) {
-		start_time=new Date();
-		pNameOfTest = nameofTest;
-            //expose the next chain - ToMakeSure
-            return ensure;
-        };
-		var output=function (d) {
-            Output = d;
-        };
-		var shortForm=function (nameofTest, actualValue, reasonForFailingTest) {
-          return  this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
-        }
+    };
+    var whenTesting = function (nameofTest) {
+        start_time = new Date();
+        pNameOfTest = nameofTest;
+        //expose the next chain - ToMakeSure
+        return ensure;
+    };
+    var output = function (d) {
+        Output = d;
+    };
+    var shortForm = function (nameofTest, actualValue, reasonForFailingTest) {
+        return this.WhenTesting(nameofTest).ToMakeSure(actualValue).Is(true).OtherwiseFailBecause(reasonForFailingTest);
+    }
     root.Aver = {
-	    version:CURRENT_VERSION,
-        // so you can use the function like so -- 'Aver.T("Sample Test 2", 10 === 100, "blaaa");'
+        version: CURRENT_VERSION,
+        // so you can use the function like so 
+        /*
+short form sample
+=================
+Aver
+.T("Sample Test 2", 10 === 100, "blaaa");
+*/
         T: shortForm,
         //set what display name to use
+        /*
+display/output plugin boiler
+============================
+(function (a) {
+    a.SD(function (pstatus, pnameofTest, pexpectedValue, pactualValue, preasonForFailingTest,CURRENT_VERSION,test_duration) {
+	var r="passed";
+	if(pstatus===false){
+	r="failed";
+	}
+        var t = {
+            result: r,
+            a: pstatus,
+            b: pnameofTest,
+            c: pexpectedValue,
+            d: pactualValue,
+            e: preasonForFailingTest,
+			f: CURRENT_VERSION,
+			g: test_duration
+        };
+        //format and send object to any where
+    });
+})(Aver);	
+*/
         SD: output,
         // set the test plugs
+        /*
+testplug boiler
+================
+(function (a) {
+    var IsEqualTo = {
+        name: "x",
+        method: function (actualValue, expectedValue) {
+           //process - and must return boolean
+        }
+    };
+    a.PI(x);
+})(Aver);
+*/
         PI: testPlug,
         //specify description of the test
-        WhenTesting:whenTesting
+        /*
+long form sample
+================
+Aver
+.WhenTesting(nameofTest)
+.ToMakeSure(actualValue)
+.Is(true)
+.OtherwiseFailBecause(reasonForFailingTest);
+*/
+        WhenTesting: whenTesting
     };
     Aver.PI(internalTest);
 }).call(this);
