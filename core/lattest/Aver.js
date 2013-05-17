@@ -16,9 +16,9 @@
         pReasonForFailingTest = reasonForFailingTest;
         end_time = new Date();
         test_duration = end_time.getTime() - start_time.getTime();
-        var f_result = "passed";
+        var f_result = "o - passed";
         if (pStatus === false) {
-            f_result = "failed";
+            f_result = "x - failed";
         }
       
         // call the display
