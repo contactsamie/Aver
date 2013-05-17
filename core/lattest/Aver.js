@@ -24,11 +24,11 @@
         pReasonForFailingTest = reasonForFailingTest;
         end_time = new Date();
         test_duration = end_time.getTime() - start_time.getTime();
-        var f_result = "o - passed";
+        var f_result = "P - passed";
         logIfInDebugMode("Test is asumed to have passed");
         if (pStatus === false) {
             logIfInDebugMode("Test is now declared failed!");
-            f_result = "x - failed";
+            f_result = "F - failed";
         }
 
         // call the display
