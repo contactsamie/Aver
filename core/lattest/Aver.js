@@ -16,12 +16,25 @@
         pReasonForFailingTest = reasonForFailingTest;
         end_time = new Date();
         test_duration = end_time.getTime() - start_time.getTime();
-
+		var f_result="passed";
+	if(pStatus===false){
+	f_result="failed";
+	}
+        var output_data = {
+            result: f_result,//can be passed or failed
+            a: pStatus,
+            b: pNameOfTest,
+            c: pExpectedValue,
+            d: pActualValue,
+            e: pReasonForFailingTest,
+			f: CURRENT_VERSION,
+			g: test_duration
+        };
         // call the display
         if (typeof (Output) == "function") {
-            Output(pStatus, pNameOfTest, pExpectedValue, pActualValue, pReasonForFailingTest, CURRENT_VERSION, test_duration);
+            Output(output_data);
         } else {
-            console.log(pStatus + "|expected-" + pExpectedValue + "|" + pActualValue + "|Aver v" + CURRENT_VERSION + "|" +test_duration+"ms|"+ pNameOfTest + "|" + pReasonForFailingTest);
+            console.log(f_result + "|expected-" + pExpectedValue + "|got-"+pActualValue +"|in-"+test_duration+"ms"+ "|Aver v" + CURRENT_VERSION + "|for-"+ pNameOfTest + "|r-" + pReasonForFailingTest);
         }
         return pStatus;
     };
@@ -79,14 +92,9 @@ Aver
         /*
 display/output plugin boiler
 ============================
-(function (a) {
-    a.SD(function (pstatus, pnameofTest, pexpectedValue, pactualValue, preasonForFailingTest,CURRENT_VERSION,test_duration) {
-	var r="passed";
-	if(pstatus===false){
-	r="failed";
-	}
-        var t = {
-            result: r,
+NOTE :EVERY DISPLAY HAS ACCESS TO THE OBJECT:-
+var output_data = {
+            result: f_result,//can be passed or failed
             a: pstatus,
             b: pnameofTest,
             c: pexpectedValue,
@@ -95,7 +103,11 @@ display/output plugin boiler
 			f: CURRENT_VERSION,
 			g: test_duration
         };
-        //format and send object to any where
+
+(function (a) {
+    a.SD(function (output_data) {
+
+        //format output_data and send object to any where
     });
 })(Aver);	
 */

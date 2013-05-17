@@ -5,16 +5,9 @@ var setUpSampleDisplayPlugin=function(){
 WasDisplayCalled=false;
 parameterPassedToDisplay={};
 (function (a) {
-    a.SD(function (pstatus, pnameofTest, pexpectedValue, pactualValue, preasonForFailingTest) {
+    a.SD(function (output_data) {
 	WasDisplayCalled=true;
-        var t = {
-            a: pstatus,
-            b: pnameofTest,
-            c: pexpectedValue,
-            d: pactualValue,
-            e: preasonForFailingTest
-        };
-		parameterPassedToDisplay=t;
+		parameterPassedToDisplay=output_data;
     });
 })(Aver);
 };
